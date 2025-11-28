@@ -1,23 +1,42 @@
 package animals;
 
 public class Animal {
-    // Поле с доступом по умолчанию (без спецификатора)
-    String name = "Животное";
+    // public - доступен всем
+    public String publicName = "Животное";
     
-    // Метод с доступом по умолчанию
-    void makeSound() {
+    // protected - доступен в том же пакете и подклассам
+    protected String protectedSpecies = "Млекопитающее";
+    
+    // default (package-private) - доступен только в том же пакете
+    String defaultColor = "Серый";
+    
+    // private - доступен только внутри класса
+    private String privateId = "ID123";
+    
+    // public метод - доступен везде
+    public void publicMakeSound() {
         System.out.println("Животное издает звук");
+        // private метод доступен внутри класса
+        privateMethod();
     }
     
-    public void testDefaultAccess() {
-        // Внутри пакета можем создавать и использовать класс с доступом по умолчанию
-        DefaultAccessClass defaultObj = new DefaultAccessClass();
-        System.out.println(defaultObj.defaultField);
-        defaultObj.defaultMethod();
-        
-        // И использовать другие классы с доступом по умолчанию
-        Animal anotherAnimal = new Animal();
-        System.out.println(anotherAnimal.name); // Доступно - тот же пакет
-        anotherAnimal.makeSound(); // Доступно - тот же пакет
+    // protected метод
+    protected void protectedSleep() {
+        System.out.println("Животное спит");
+    }
+    
+    // default метод
+    void defaultEat() {
+        System.out.println("Животное ест");
+    }
+    
+    // private метод
+    private void privateMethod() {
+        System.out.println("Это приватный метод");
+    }
+    
+    // public метод для доступа к private полю (инкапсуляция)
+    public String getPrivateId() {
+        return privateId;
     }
 }
