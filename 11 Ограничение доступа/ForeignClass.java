@@ -5,7 +5,7 @@ import animals.Animal;
 public class ForeignClass {
     public void demonstrateAccess() {
         Animal animal = new Animal();
-        System.out.println("=== Доступ из другого пакета (не подкласс) ===");
+        System.out.println("Доступ из другого пакета (не подкласс)");
         
         // public - доступно
         System.out.println("publicName: " + animal.publicName);
