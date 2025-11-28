@@ -9,15 +9,15 @@ public class Main {
 
     public static void main(String[] args) {
         // Создаем null-ссылку на объект-оболочку
-        Integer nullInteger = null;
+        Long nullLong = null;
 
         // Попытка автораспаковки null-значения вызовет NullPointerException
         try {
-            int primitiveInt = nullInteger; // Автораспаковка null -> NullPointerException
-            System.out.println("Значение: " + primitiveInt);
+            long primitivelong = nullLong; // Автораспаковка null -> NullPointerException
+            System.out.println("Значение: " + primitivelong);
         } catch (NullPointerException e) {
             System.out.println("Поймано исключение: " + e.getClass().getSimpleName());
-            System.out.println("Попытка автораспаковки null-значения Integer в примитивный тиа int");
+            System.out.println("Попытка автораспаковки null-значения Long в примитивный тиа long");
         }
 
     }
