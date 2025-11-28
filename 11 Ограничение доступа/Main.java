@@ -1,32 +1,37 @@
-import animals.Animal;
-// import animals.DefaultAccessClass; // ОШИБКА! Класс с default доступом не виден из другого пакета
-
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== ДОСТУП ПО УМОЛЧАНИЮ (БЕЗ СПЕЦИФИКАТОРА) ===\n");
+        System.out.println("ДЕМОНСТРАЦИЯ СПЕЦИФИКАТОРОВ ДОСТУПА\n");
         
-        Animal animal = new Animal();
-        
-        // Public доступ - работает
-        animal.publicMakeSound();
-        
-        // Default доступ - НЕ РАБОТАЕТ из другого пакета
-        // System.out.println(animal.name); // Ошибка компиляции
-        // animal.makeSound(); // Ошибка компиляции
-        
-        // Protected доступ - не доступен из не-подкласса в другом пакете
-        // System.out.println(animal.protectedSpecies); // Ошибка компиляции
-        
-        System.out.println("\n=== ПРОВЕРКА ДОСТУПА ИЗ РАЗНЫХ КЛАССОВ ===");
-        
-        // Создаем объекты для тестирования
+        // Тестирование из того же пакета
         animals.Dog dog = new animals.Dog();
-        dog.testAccess();
+        dog.demonstrateAccess();
         
-        System.out.println("\n=== ЧТО МОЖНО И НЕЛЬЗЯ С DEFAULT ДОСТУПОМ ===");
-        System.out.println("✓ Виден в том же пакете");
-        System.out.println("✗ Не виден в других пакетах");
-        System.out.println("✗ Не наследуется подклассами в других пакетах");
-        System.out.println("✓ Наследуется подклассами в том же пакете");
+        System.out.println();
+        
+        animals.Cat cat = new animals.Cat();
+        cat.demonstrateAccess();
+        
+        System.out.println();
+        
+        // Тестирование из другого пакета (подкласс)
+        other.ForeignAnimal foreignAnimal = new other.ForeignAnimal();
+        foreignAnimal.demonstrateAccess();
+        
+        System.out.println();
+        
+        // Тестирование из другого пакета (не подкласс)
+        other.ForeignClass foreignClass = new other.ForeignClass();
+        foreignClass.demonstrateAccess();
+        
+        System.out.println();
+        
+        // Демонстрация инкапсуляции
+        animals.Animal animal = new animals.Animal();
+        System.out.println("=== ИНКАПСУЛЯЦИЯ ===");
+        // Прямой доступ к private полю невозможен:
+        // System.out.println(animal.privateId); // Ошибка компиляции
+        
+        // Но доступ через public метод возможен:
+        System.out.println("ID через геттер: " + animal.getPrivateId());
     }
 }
