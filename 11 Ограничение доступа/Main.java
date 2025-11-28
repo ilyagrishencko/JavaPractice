@@ -27,7 +27,7 @@ public class Main {
         
         // Демонстрация инкапсуляции
         animals.Animal animal = new animals.Animal();
-        System.out.println("=== ИНКАПСУЛЯЦИЯ ===");
+        System.out.println("ИНКАПСУЛЯЦИЯ");
         // Прямой доступ к private полю невозможен:
         // System.out.println(animal.privateId); // Ошибка компиляции
         
