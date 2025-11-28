@@ -4,7 +4,7 @@ import animals.Animal;
 
 public class ForeignAnimal extends Animal {
     public void demonstrateAccess() {
-        System.out.println("=== Доступ из подкласса в другом пакете ===");
+        System.out.println("Доступ из подкласса в другом пакете");
         
         // public - доступно
         System.out.println("publicName: " + publicName);
