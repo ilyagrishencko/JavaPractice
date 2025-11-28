@@ -2,7 +2,7 @@ package animals;
 
 public class Dog extends Animal {
     public void demonstrateAccess() {
-        System.out.println("=== Доступ из подкласса в том же пакете ===");
+        System.out.println("Доступ из подкласса в том же пакете");
         
         // public - доступно
         System.out.println("publicName: " + publicName);
