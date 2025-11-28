@@ -3,7 +3,7 @@ package animals;
 public class Cat {
     public void demonstrateAccess() {
         Animal animal = new Animal();
-        System.out.println("=== Доступ из класса в том же пакете ===");
+        System.out.println("Доступ из класса в том же пакете");
         
         // public - доступно
         System.out.println("publicName: " + animal.publicName);
