@@ -1,15 +1,25 @@
 package animals;
 
-public class Dog {
-    public void testAccess() {
-        // Доступ к классу с default доступом из того же пакета
-        DefaultAccessClass defaultObj = new DefaultAccessClass();
-        System.out.println("Из того же пакета: " + defaultObj.defaultField);
-        defaultObj.defaultMethod();
+public class Dog extends Animal {
+    public void demonstrateAccess() {
+        System.out.println("=== Доступ из подкласса в том же пакете ===");
         
-        // Доступ к default полям и методам Animal из того же пакета
-        Animal animal = new Animal();
-        System.out.println("Имя животного: " + animal.name);
-        animal.makeSound();
+        // public - доступно
+        System.out.println("publicName: " + publicName);
+        
+        // protected - доступно (подкласс)
+        System.out.println("protectedSpecies: " + protectedSpecies);
+        
+        // default - доступно (тот же пакет)
+        System.out.println("defaultColor: " + defaultColor);
+        
+        // private - НЕ доступно
+        // System.out.println(privateId); // Ошибка компиляции
+        
+        // Методы:
+        publicMakeSound();     // public - доступно
+        protectedSleep();      // protected - доступно
+        defaultEat();          // default - доступно
+        // privateMethod();    // private - НЕ доступно
     }
 }
