@@ -52,7 +52,7 @@ class SubClass extends SuperClass {
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== Демонстрация final методов ===\n");
+        System.out.println("Демонстрация final методов\n");
 
         // Создаем объекты
         SuperClass superObj = new SuperClass();
