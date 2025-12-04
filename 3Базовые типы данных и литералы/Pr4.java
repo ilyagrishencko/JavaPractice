@@ -87,7 +87,7 @@ public class Main {
         
         // Многократная конкатенация
         
-        System.out.println("\n--- Множественная конкатенация ---");
+        System.out.println("\nМножественная конкатенация");
         
         String complexResult = "Числа: " + a + ", " + b + ", сумма: " + (a + b);
         System.out.println(complexResult);
