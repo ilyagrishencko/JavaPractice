@@ -1,0 +1,148 @@
+/**
+ * Пример, демонстрирующий СОБЛЮДЕНИЕ принципа подстановки Лисков.
+ * Вместо наследования "квадрат от прямоугольника" используем
+ * общий интерфейс и композицию.
+ */
+public class GoodLSPExample {
+    
+    // Общий интерфейс для всех фигур
+    interface Shape {
+        int getArea();
+    }
+    
+    // Класс прямоугольника
+    static class Rectangle implements Shape {
+        private int width;
+        private int height;
+        
+        public Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+        
+        public int getWidth() {
+            return width;
+        }
+        
+        public int getHeight() {
+            return height;
+        }
+        
+        public void setWidth(int width) {
+            this.width = width;
+        }
+        
+        public void setHeight(int height) {
+            this.height = height;
+        }
+        
+        @Override
+        public int getArea() {
+            return width * height;
+        }
+    }
+    
+    // Класс квадрата
+    static class Square implements Shape {
+        private int side;
+        
+        public Square(int side) {
+            this.side = side;
+        }
+        
+        public int getSide() {
+            return side;
+        }
+        
+        public void setSide(int side) {
+            this.side = side;
+        }
+        
+        @Override
+        public int getArea() {
+            return side * side;
+        }
+    }
+    
+    // Метод для изменения размера прямоугольника
+    static void resizeRectangle(Rectangle rectangle, int newWidth, int newHeight) {
+        rectangle.setWidth(newWidth);
+        rectangle.setHeight(newHeight);
+        
+        System.out.println("Прямоугольник изменен: ширина=" + rectangle.getWidth() + 
+                          ", высота=" + rectangle.getHeight());
+        System.out.println("Площадь прямоугольника: " + rectangle.getArea());
+    }
+    
+    // Метод для изменения размера квадрата
+    static void resizeSquare(Square square, int newSide) {
+        square.setSide(newSide);
+        
+        System.out.println("Квадрат изменен: сторона=" + square.getSide());
+        System.out.println("Площадь квадрата: " + square.getArea());
+    }
+    
+    // Универсальный метод для работы с любыми фигурами
+    static void printArea(Shape shape) {
+        System.out.println("Площадь фигуры: " + shape.getArea());
+    }
+    
+    // Фабричный метод для создания фигур
+    static Shape createShape(String type, int... dimensions) {
+        switch (type.toLowerCase()) {
+            case "rectangle":
+                if (dimensions.length == 2) {
+                    return new Rectangle(dimensions[0], dimensions[1]);
+                }
+                break;
+            case "square":
+                if (dimensions.length == 1) {
+                    return new Square(dimensions[0]);
+                }
+                break;
+        }
+        throw new IllegalArgumentException("Неверные параметры для создания фигуры");
+    }
+    
+    public static void main(String[] args) {
+        // 1. Создаем фигуры
+        System.out.println("1. Создание фигур:");
+        Shape rectangle = createShape("rectangle", 5, 10);
+        Shape square = createShape("square", 5);
+        
+        // 2. Все фигуры можно обрабатывать универсальным методом
+        System.out.println("\n2. Универсальная обработка фигур:");
+        printArea(rectangle);
+        printArea(square);
+        
+        // 3. Работа с конкретными типами
+        System.out.println("\n3. Работа с конкретными типами:");
+        
+        // Если нам нужен именно прямоугольник
+        if (rectangle instanceof Rectangle) {
+            Rectangle rect = (Rectangle) rectangle;
+            resizeRectangle(rect, 8, 12);
+        }
+        
+        // Если нам нужен именно квадрат
+        if (square instanceof Square) {
+            Square sq = (Square) square;
+            resizeSquare(sq, 8);
+        }
+        
+        // 4. Массив фигур - можем хранить разные типы вместе
+        System.out.println("\n4. Массив фигур (разные типы вместе):");
+        Shape[] shapes = {
+            new Rectangle(3, 4),
+            new Square(5),
+            new Rectangle(2, 6),
+            new Square(3)
+        };
+        
+        int totalArea = 0;
+        for (Shape shape : shapes) {
+            totalArea += shape.getArea();
+        }
+        System.out.println("Общая площадь всех фигур: " + totalArea);
+    }
+}
