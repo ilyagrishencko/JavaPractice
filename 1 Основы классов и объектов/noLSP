@@ -1,0 +1,95 @@
+/**
+ * Пример, демонстрирующий НАРУШЕНИЕ принципа подстановки Лисков.
+ * Класс Square (квадрат) наследуется от Rectangle (прямоугольник),
+ * но изменяет поведение методов setWidth и setHeight.
+ */
+public class BadLSPExample {
+    
+    // Базовый класс - прямоугольник
+    static class Rectangle {
+        protected int width;
+        protected int height;
+        
+        public Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+        
+        public int getWidth() {
+            return width;
+        }
+        
+        public int getHeight() {
+            return height;
+        }
+        
+        public void setWidth(int width) {
+            this.width = width;
+        }
+        
+        public void setHeight(int height) {
+            this.height = height;
+        }
+        
+        public int getArea() {
+            return width * height;
+        }
+    }
+    
+    // Квадрат - наследник прямоугольника (логически верно, но нарушает LSP)
+    static class Square extends Rectangle {
+        
+        public Square(int side) {
+            super(side, side);
+        }
+        
+        // Нарушение LSP: изменяем поведение родительских методов
+        @Override
+        public void setWidth(int width) {
+            super.setWidth(width);
+            super.setHeight(width); // В квадрате ширина и высота всегда равны
+        }
+        
+        @Override
+        public void setHeight(int height) {
+            super.setHeight(height);
+            super.setWidth(height); // В квадрате ширина и высота всегда равны
+        }
+    }
+    
+    // Метод, который работает с прямоугольниками
+    static void resizeRectangle(Rectangle rectangle, int newWidth, int newHeight) {
+        rectangle.setWidth(newWidth);
+        rectangle.setHeight(newHeight);
+        
+        // Ожидаем, что площадь изменится предсказуемым образом
+        int expectedArea = newWidth * newHeight;
+        int actualArea = rectangle.getArea();
+        
+        System.out.println("Ожидаемая площадь: " + expectedArea);
+        System.out.println("Фактическая площадь: " + actualArea);
+        
+        if (expectedArea != actualArea) {
+            System.out.println("ОШИБКА: Нарушение принципа подстановки Лисков!");
+        }
+    }
+    
+    public static void main(String[] args) {
+        
+        Rectangle rectangle = new Rectangle(5, 10);
+        System.out.println("\n1. Работа с обычным прямоугольником:");
+        resizeRectangle(rectangle, 8, 12); // Всё работает правильно
+        
+        Square square = new Square(5);
+        System.out.println("\n2. Работа с квадратом (который унаследован от прямоугольника):");
+        resizeRectangle(square, 8, 12); // Нарушение LSP!
+        
+        /*
+         * Проблема: квадрат наследуется от прямоугольника, но изменяет поведение
+         * методов setWidth и setHeight. Когда метод resizeRectangle пытается
+         * установить ширину=8 и высоту=12, квадрат устанавливает обе стороны
+         * равными последнему установленному значению (12), что приводит
+         * к неожиданному результату.
+         */
+    }
+}
